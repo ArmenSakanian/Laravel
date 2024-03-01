@@ -7,14 +7,12 @@
 </head>
 <body>
     <header class="header">
-        <a href="/" class="header__logo">
-            Политех
-        </a>
         <nav class="header__nav">
             <a href="/" class="header__link">Главная</a>
             <a href="/contacts" class="header__link">Контакты</a>
             <a href="/about_us" class="header__link">О нас</a>
         </nav>
+        <a href="/create_user" class="header__sign-in">Sign In</a>
     </header>
     <main class="main">
         @yield('content')
