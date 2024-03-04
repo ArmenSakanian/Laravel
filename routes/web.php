@@ -22,8 +22,11 @@ Route::get('/contacts', [MainController::class, 'show_contacts']);
 
 // Руты для работы с пользователями
 use App\Http\Controllers\AuthController;
-Route::get('/create_user', [AuthController::class, 'create']);
-Route::post('/register', [AuthController::class, 'register']);
+Route::get('/register', [AuthController::class, 'registration']);
+Route::post('/create_user', [AuthController::class, 'create_user']);
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/authenticate', [AuthController::class, 'authenticate']);
+Route::get('/logout', [AuthController::class, 'logOut']);
 
 // Руты для работы со статьями
 use App\Http\Controllers\ArticleController;
