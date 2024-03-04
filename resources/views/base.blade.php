@@ -7,8 +7,12 @@
 </head>
 <body>
     <header class="header">
+        <a href="/" class="header__logo">
+            Политех
+        </a>
         <nav class="header__nav">
             <a href="/" class="header__link">Главная</a>
+            <a href="/article" class="header__link">Статьи</a>
             <a href="/contacts" class="header__link">Контакты</a>
             <a href="/about_us" class="header__link">О нас</a>
         </nav>

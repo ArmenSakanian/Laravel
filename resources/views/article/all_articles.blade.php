@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<h1>Главная страница</h1>
+<h1>Статьи (из файла)</h1>
 <table>
     <tr>
         <th>Name</th>
@@ -16,8 +16,8 @@
     @foreach($articles as $article)
         <tr>
             <td>{{ $article->name }}</td>
-            @if (isset($article->shortDesc))
-            <td>{{ $article->shortDesc }}</td>
+            @if (isset($article->short_desc))
+            <td>{{ $article->short_desc }}</td>
             @else
             <td>Нет данных</td>
             @endif
