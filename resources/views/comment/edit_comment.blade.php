@@ -1,0 +1,32 @@
+@extends('base')
+
+@section('title')
+    Редактирование статьи
+@endsection
+
+@section('content')
+    <h1>Редактирование комментария</h1>
+    @if ($errors->any())
+        <ul class="error-list">
+            @foreach ($errors->all() as $error)
+                <li class="error-list__item">{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
+    <form class="form" action="/comment/update/{{ $comment->id }}" method="POST">
+        @csrf
+        <fieldset class="form__fieldset">
+            <legend>Форма редактирования</legend>
+
+            <label class="form__label" for="title">Заголовок</label>
+            <input class="form__input" type="text" name="title" id="title" value="{{ $comment->title }}" required>
+
+            <label class="form__label" for="text">Текст</label>
+            <textarea name="text" id="text" required>{{ $comment->text }}</textarea>
+
+            <button class="button button_blue" type="submit">Отправить</button>
+
+        </fieldset>
+        <button class="form__button button" type="submit">Отправить</button>
+    </form>
+@endsection
