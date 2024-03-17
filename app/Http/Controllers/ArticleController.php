@@ -8,6 +8,7 @@ use App\Models\Comment; // импорт
 use Illuminate\Support\Facades\Gate;
 use App\Mail\ArticleMail;
 use Illuminate\Support\Facades\Mail;
+use App\Jobs\ArticleMailJob;
 
 class ArticleController extends Controller
 {
@@ -52,8 +53,7 @@ class ArticleController extends Controller
         $article->author_id = 1;
         $article->save();
 
-        Mail::to('i.d.pereverzev@mail.ru')->send(new ArticleMail($article));
-
+        ArticleMailJob::dispatch($article);
         return redirect('/article');
     }
 
