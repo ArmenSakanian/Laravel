@@ -12,13 +12,13 @@
             Политех
         </a>
         <nav class="header__nav">
-            <a href="/" class="header__link">Главная</a>
-            <a href="/article" class="header__link">Статьи</a>
+            <a href="/" class="header__link @activeLink('/')">Главная</a>
+            <a href="/article" class="header__link @activeLink('article')" >Статьи</a>
             @can('create')
-                <a href="/article/create" class="header__link">Создание статьи</a>
+                <a href="/article/create" class="header__link @activeLink('article/create')">Создание статьи</a>
             @endcan
             @can('comment-admin')
-                <a href="/comment/" class="header__link">Все комментарии</a>
+                <a href="/comment/" class="header__link @activeLink('comment')">Все комментарии</a>
             @endcan
         </nav>
 
