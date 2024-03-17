@@ -12,6 +12,7 @@ use App\Models\Article;
 use App\Models\User;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\NewCommentNotify;
+use App\Events\NewCommentEvent;
 
 class CommentController extends Controller
 {
@@ -82,6 +83,7 @@ class CommentController extends Controller
         $users = User::where('id', '!=', $comment->author_id)->get();
     
         Notification::send($users, new NewCommentNotify($article));
+        NewCommentEvent::dispatch($article);
     
         return redirect()->route('comments');
     }
