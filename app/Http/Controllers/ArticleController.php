@@ -6,6 +6,8 @@ use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Models\Comment; // импорт
 use Illuminate\Support\Facades\Gate;
+use App\Mail\ArticleMail;
+use Illuminate\Support\Facades\Mail;
 
 class ArticleController extends Controller
 {
@@ -49,6 +51,9 @@ class ArticleController extends Controller
         $article->date = $request->date;
         $article->author_id = 1;
         $article->save();
+
+        Mail::to('i.d.pereverzev@mail.ru')->send(new ArticleMail($article));
+
         return redirect('/article');
     }
 
