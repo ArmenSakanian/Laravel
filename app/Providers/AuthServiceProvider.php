@@ -38,5 +38,11 @@ class AuthServiceProvider extends ServiceProvider
                 return Response::allow();
             } return Response::deny('Отказано в доступе!');
         });
+
+        Gate::define('comment-admin', function(User $user) {
+            if ($user->role === 'moderator') {
+                return Response::allow();
+            } return Response::deny('Вы не модератор!');
+        });
     }
 }

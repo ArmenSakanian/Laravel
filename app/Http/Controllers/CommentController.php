@@ -6,24 +6,34 @@ use Illuminate\Http\Request;
 use App\Models\Comment; // импорт
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AdminCommentMail;
 
 class CommentController extends Controller
 {
+    // Метод отображения всех комментариев
+    public function index() {
+        $comments = Comment::latest()->paginate(10);
+        return view('comment.index', ['comments' => $comments]);
+    }
+
+
     public function store(Request $request) {
         $request->validate([
             'title' => 'required',
             'text' => 'required',
             'article_id' => 'required'
         ]);
-    
         $comment = new Comment;
         $comment->title = $request->title;
         $comment->text = $request->text;
-        $comment->author_id = Auth::id(); // Назначение автора
+        $comment->author_id = Auth::id();
         $comment->article_id = $request->article_id;
-        $comment->save();
+        $res = $comment->save();
     
-        return redirect()->route('article.show', ['article' => $request->article_id]);
+        Mail::to('i.d.pereverzev@mail.ru')->send(new AdminCommentMail($comment));
+    
+        return redirect()->route('article.show', ['article' => $request->article_id, 'res'=>$res]);
     }
 
     public function delete($comment_id) {
@@ -55,5 +65,26 @@ class CommentController extends Controller
         return view('comment.edit_comment', ['comment' => $comment]);
     }
 
+    // Метод для одобрения комментария
+    public function accept($comment_id) {
+        Gate::authorize('comment-admin');
+
+        $comment = Comment::findOrFail($comment_id);
+        $comment->status = true;
+        $comment->save();
+
+        return redirect()->route('comments');
+    }
+
+    // Метод для отклонения комментария
+    public function reject($comment_id) {
+        Gate::authorize('comment-admin');
+
+        $comment = Comment::findOrFail($comment_id);
+        $comment->status = false;
+        $comment->save();
+
+        return redirect()->route('comments');
+    }
 
 }

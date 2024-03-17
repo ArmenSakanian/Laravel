@@ -16,8 +16,9 @@
             @can('create')
                 <a href="/article/create" class="header__link">Создание статьи</a>
             @endcan
-            <a href="/contacts" class="header__link">Контакты</a>
-            <a href="/about_us" class="header__link">О нас</a>
+            @can('comment-admin')
+                <a href="/comment/" class="header__link">Все комментарии</a>
+            @endcan
         </nav>
         @if (Auth::user() != null)
         <a href="/logout" class="header__link">{{ Auth::user()->name }}</a>
