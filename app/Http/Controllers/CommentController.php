@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AdminCommentMail;
+use App\Models\Article;
+use App\Models\User;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\NewCommentNotify;
 
 class CommentController extends Controller
 {
@@ -68,11 +72,17 @@ class CommentController extends Controller
     // Метод для одобрения комментария
     public function accept($comment_id) {
         Gate::authorize('comment-admin');
-
+    
         $comment = Comment::findOrFail($comment_id);
         $comment->status = true;
         $comment->save();
-
+    
+        $article = Article::findOrFail($comment->article_id);
+        // Получаем всех пользователей кроме того, кто оставил комментарий
+        $users = User::where('id', '!=', $comment->author_id)->get();
+    
+        Notification::send($users, new NewCommentNotify($article));
+    
         return redirect()->route('comments');
     }
 
