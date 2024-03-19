@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <h1>Это страница для просмотра всех комментариев</h1>
+    <h1>Модерация комментариев</h1>
     <table class="table" style="border: 1px solid black">
         <tr class="table__line">
             <th class="table__header">№</th>
@@ -16,7 +16,7 @@
         </tr>
         @foreach($comments as $comment)
             <tr class="table__line">
-                <td class="table__cell">
+                <td class="table__cell table__cell_centered">
                     {{ $comment->id }}
                 </td>
                 <td class="table__cell">
@@ -29,15 +29,15 @@
                     <a href="/article/{{ $comment->article_id }}">Статья №{{ $comment->article_id }} </a>
                 </td>
                 <td class="table__cell">
-                    <div class="button-box button-box_vertiacal">
+                    <div class="button-box button-box_vertical">
                         @if ($comment->status === null)
-                            <a href="/comment/accept/{{ $comment->id }}" class="button button_green">Принять</a>
-                            <a href="/comment/reject/{{ $comment->id }}" class="button button_red">Отклонить</a>
+                            <a href="/comment/accept/{{ $comment->id }}?page={{$comments->currentPage()}}" class="button button_green">Принять</a>
+                            <a href="/comment/reject/{{ $comment->id }}?page={{$comments->currentPage()}}" class="button button_red">Отклонить</a>
                         @else
                             @if ($comment->status)
-                                <a href="/comment/reject/{{ $comment->id }}" class="button button_green">Принят</a>
+                                <a href="/comment/reject/{{ $comment->id }}?page={{$comments->currentPage()}}" class="button button_green">Принят</a>
                             @else
-                                <a href="/comment/accept/{{ $comment->id }}" class="button button_red">Отклонен</a>
+                                <a href="/comment/accept/{{ $comment->id }}?page={{$comments->currentPage()}}" class="button button_red">Отклонен</a>
                             @endif
                         @endif
                     </div>

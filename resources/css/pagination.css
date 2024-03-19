@@ -1,0 +1,14 @@
+.paginator {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.paginator__list {
+    display: flex;
+    gap: 10px;
+}
+
+.paginator__button {
+    border: 1px solid black;
+}

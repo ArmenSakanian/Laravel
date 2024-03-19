@@ -5,8 +5,8 @@
 @endsection
 
 @section('content')
-    <h1>Это страница для просмотра всех статей</h1>
-    <table class="table" style="border: 1px solid black">
+    <h1>Статьи</h1>
+    <table class="table">
         <tr class="table__line">
             <th class="table__header">Name</th>
             <th class="table__header">Short Desc</th>
@@ -20,7 +20,7 @@
                 @else
                 <td class="table__cell">Нет данных</td>
                 @endif
-                <td class="table__cell">{{ $article->date }}</td>
+                <td class="table__cell table__cell_centered">{{ $article->date }}</td>
             </tr>
         @endforeach
     </table>

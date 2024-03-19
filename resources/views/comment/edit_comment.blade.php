@@ -1,7 +1,7 @@
 @extends('base')
 
 @section('title')
-    Редактирование статьи
+    Редактирование комментария
 @endsection
 
 @section('content')
